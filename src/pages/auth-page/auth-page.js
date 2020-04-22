@@ -18,6 +18,10 @@ export const AuthPage = () => {
         clearError()
     }, [error, message, clearError])
 
+    useEffect(() => {
+        window.M.updateTextFields()
+    }, [])
+
     const changeHandler = e => {
         setForm({
             ...form, [e.target.name]: e.target.value
@@ -28,14 +32,16 @@ export const AuthPage = () => {
         try {
             const data = await request('/api/auth/register', 'POST', { ...form })
             message(data.message)
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     const loginHandler = async () => {
         try {
             const data = await request('/api/auth/login', 'POST', { ...form })
             auth.login(data.token, data.userId)
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     return (
