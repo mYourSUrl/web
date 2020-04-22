@@ -25,10 +25,15 @@ export const AuthPage = () => {
     const registerHandler = async () => {
         try {
             const data = await request('/api/auth/register', 'POST', { ...form })
-            console.log(`Data ${data}`)
-        } catch (e) {
+            message(data.message)
+        } catch (e) {}
+    }
 
-        }
+    const loginHandler = async () => {
+        try {
+            const data = await request('/api/auth/login', 'POST', { ...form })
+            message(data.message)
+        } catch (e) {}
     }
 
     return (
@@ -68,6 +73,7 @@ export const AuthPage = () => {
                     <div className="card-action auth-page--actions">
                         <button
                             className='btn yellow darken-4 auth-page--btn--login'
+                            onClick={loginHandler}
                             disabled={loading}
                         >
                             Войти
