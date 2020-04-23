@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/auth.context'
 import { useHttp } from '../../hooks/http.hook'
+import { useHistory } from 'react-router-dom'
 
 import './create-page.css'
 
 export const CreatePage = () => {
     const auth = useContext(AuthContext)
+    const history = useHistory()
     const { request } = useHttp()
     const [link, setLink] = useState('')
 
@@ -19,7 +21,7 @@ export const CreatePage = () => {
                 const data = await request('/api/link/generate', 'POST', { from: link }, {
                     Authorization: `Bearer ${auth.token}`
                 })
-                console.log(data)
+                history.push(`/detail/${data.link._id}`)
             } catch (e) {
 
             }
